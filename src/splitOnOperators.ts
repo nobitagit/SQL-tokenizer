@@ -1,12 +1,12 @@
-function splitOnOperators (operators: Array<string>): (string) => Array<string> {
-  const maxOperatorLenght = operators.reduce((maxLenght, operator) => (
+export default function splitOnOperators(operators: string[]) {
+  const maxOperatorLength = operators.reduce((maxLenght, operator) => (
     Math.max(operator.length, maxLenght)
   ), 0)
 
-  return (sql: string): Array<string> => {
+  return (sql: string): string[] => {
     let skipNumChars = 0
 
-    return sql.split('').reduce(
+    return sql.split("").reduce(
       (blocks, character, index, array) => {
         const numBlocks = blocks.length
 
@@ -16,8 +16,8 @@ function splitOnOperators (operators: Array<string>): (string) => Array<string> 
         }
 
         // Check if it is an operator, look for longest operators first.
-        for (let len = maxOperatorLenght; len > 0; len--) {
-          const operator = array.slice(index, index + len).join('')
+        for (let len = maxOperatorLength; len > 0; len--) {
+          const operator = array.slice(index, index + len).join("")
 
           if (operators.indexOf(operator) > -1) {
             skipNumChars = len - 1
@@ -44,5 +44,3 @@ function splitOnOperators (operators: Array<string>): (string) => Array<string> 
     )
   }
 }
-
-module.exports = splitOnOperators

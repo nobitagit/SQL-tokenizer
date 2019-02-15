@@ -2,12 +2,6 @@
   "compilerOptions": {
     "allowJs": false,
     "charset": "utf8",
-    "importHelpers": true,
-    "jsx": "react",
-    "lib": [
-      "dom",
-      "es2015"
-    ],
     "module": "commonjs",
     "noImplicitUseStrict": true,
     "outDir": ".",
@@ -17,7 +11,7 @@
     "target": "es5"
   },
   "exclude": [
-    "**/stories"
+    "./test"
   ],
   "include": [
     "./src/**/*"
