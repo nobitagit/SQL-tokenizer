@@ -1,9 +1,9 @@
 const isWhiteSpace = (character) => (
-  (character === ' ') || (character === '\t')
+  (character === " ") || (character === "\t")
 )
 
-function splitOnSpaces (sql: string): Array<string> {
-  return sql.split('').reduce(
+export default function splitOnSpaces(sql: string): string[] {
+  return sql.split("").reduce(
     (blocks, character, index) => {
       const isSpace = isWhiteSpace(character)
       const numBlocks = blocks.length
@@ -32,5 +32,3 @@ function splitOnSpaces (sql: string): Array<string> {
     }, []
   )
 }
-
-module.exports = splitOnSpaces
