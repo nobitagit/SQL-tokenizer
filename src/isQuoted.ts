@@ -1,4 +1,4 @@
-function isQuoted (block: string): boolean {
+export default function isQuoted(block: string): boolean {
   const start = block[0]
   const end = block[block.length - 1]
 
@@ -8,5 +8,3 @@ function isQuoted (block: string): boolean {
 
   return isDouble || isSingle
 }
-
-module.exports = isQuoted

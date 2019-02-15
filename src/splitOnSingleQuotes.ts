@@ -1,18 +1,22 @@
-function splitOnSingleQuotes (sql: string): Array<string> {
+export default function splitOnSingleQuotes(sql: string): string[] {
   let isInsideQuotes = sql[0] === "'"
 
   return sql.split("'").reduce((blocks, block, index, array) => {
-    const isEmptyBlock = block === ''
+    const isEmptyBlock = block === ""
     const isFirstOrLastChar = (index === 0) || (index === array.length - 1)
 
     // Ignore first or last block if it is empty.
-    if (isFirstOrLastChar && isEmptyBlock) return blocks
+    if (isFirstOrLastChar && isEmptyBlock) {
+      return blocks
+    }
 
     if (isInsideQuotes) {
       isInsideQuotes = false
-      return blocks.concat(`'${block}'`)
+
+      return blocks.concat([`'${block}'`])
     } else {
       isInsideQuotes = true
+
       return blocks.concat(block)
     }
   }, []).reduce((accumulator, currentValue, currentIndex, array) => {
@@ -21,7 +25,7 @@ function splitOnSingleQuotes (sql: string): Array<string> {
     // select 'O ''Reilly' from mytable
     // [ 'select ', '\'O \'', '', '\'Reilly\'', ' from mytable' ]
 
-    const isEmptyString = currentValue === ''
+    const isEmptyString = currentValue === ""
     const isLastOne = currentIndex === array.length - 1
 
     if (currentIndex === 0) {
@@ -37,13 +41,13 @@ function splitOnSingleQuotes (sql: string): Array<string> {
       let numEmptyValues = 0
 
       for (let i = currentIndex; i < array.length - 1; i++) {
-        if (array[i] === '') {
+        if (array[i] === "") {
           numEmptyValues++
         } else {
           // Remove empty strings.
           accumulator.splice(currentIndex, numEmptyValues)
           // Merge current and next value.
-          accumulator[currentIndex - 1] += accumulator.splice(currentIndex, 1).join('')
+          accumulator[currentIndex - 1] += accumulator.splice(currentIndex, 1).join("")
           break
         }
       }
@@ -52,5 +56,3 @@ function splitOnSingleQuotes (sql: string): Array<string> {
     return accumulator
   }, [])
 }
-
-module.exports = splitOnSingleQuotes

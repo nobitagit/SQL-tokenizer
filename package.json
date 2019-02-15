@@ -1,20 +1,18 @@
 {
   "name": "sql-tokenizer",
   "version": "0.2.1",
-  "description": "analyzes SQL and converts it into a list of tokens",
-  "main": "lib/index.js",
+  "description": "analyzes a SQL statement and converts it into a list of tokens",
+  "main": "index.js",
   "scripts": {
-    "babel": "babel src --compact false -d lib",
-    "flow": "flow",
-    "lint": "standa",
+    "tsc--noemit": "tsc --declaration --project . --noemit",
+    "tslint": "tslint -c tslint.json '{src,test}/**/*.{ts,tsx}'",
     "postversion": "npm publish; git push origin v${npm_package_version}; git push origin master",
-    "prebabel": "mkdir -p lib",
-    "prepublish": "npm run babel",
-    "test": "tape -r babel-register test/*.js"
+    "test": "npm run tape; npm run tsc--noemit",
+    "tape": "ts-node node_modules/.bin/tape test/*.ts"
   },
   "pre-commit": [
-    "lint",
-    "flow"
+    "test",
+    "tslint"
   ],
   "repository": {
     "type": "git",
@@ -24,12 +22,6 @@
     "SQL",
     "tokenizer"
   ],
-  "standa": {
-    "parser": "babel-eslint",
-    "plugins": [
-      "flowtype"
-    ]
-  },
   "author": "Gianluca Casati (http://g14n.info)",
   "license": "MIT",
   "bugs": {
@@ -37,18 +29,15 @@
   },
   "homepage": "http://g14n.info/SQL-tokenizer",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.2.2",
-    "babel-preset-flow": "^6.23.0",
-    "babel-register": "^6.26.0",
-    "dot-editorconfig": "^1.1.0",
-    "eslint-plugin-flowtype": "^2.46.1",
+    "@types/tape": "^4.2.33",
+    "dot-editorconfig": "^1.1.1",
     "pre-commit": "^1.2.2",
-    "standa": "^2.0.2",
-    "tape": "^4.9.0"
+    "tape": "^4.10.1",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
   },
   "dependencies": {
-    "flow-bin": "^0.71.0",
     "sql92-operators": "^1.0.2"
   }
 }

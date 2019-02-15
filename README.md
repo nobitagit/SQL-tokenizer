@@ -1,6 +1,6 @@
 # SQL tokenizer
 
-> analyzes SQL statements and converts it into a list of tokens
+> analyzes a SQL statement and converts it into a list of tokens
 
 [Installation](#installation) |
 [Usage](#usage) |
