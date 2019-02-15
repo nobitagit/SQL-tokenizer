@@ -1,12 +1,12 @@
-function extractDashComments (sql: string): Array<string> {
-  let blocks = []
-  let blockIndexes = []
+export default function extractDashComments(sql: string): string[] {
+  const blocks = []
+  const blockIndexes = []
 
-  let isInsideComment = sql.substring(0, 2) === '--'
+  let isInsideComment = sql.substring(0, 2) === "--"
 
-  sql.split('').forEach(function (currentValue, index, array) {
-    const currentTwoChars = array.slice(index, index + 2).join('')
-    const isNewLine = (currentValue === '\n') || (currentValue === '\r')
+  sql.split("").forEach((currentValue, index, array) => {
+    const currentTwoChars = array.slice(index, index + 2).join("")
+    const isNewLine = (currentValue === "\n") || (currentValue === "\r")
 
     switch (index) {
       case 0:
@@ -31,7 +31,7 @@ function extractDashComments (sql: string): Array<string> {
           blockIndexes.push(index, index + 1)
         }
 
-        if ((currentTwoChars === '--') && !isInsideComment) {
+        if ((currentTwoChars === "--") && !isInsideComment) {
           isInsideComment = true
           blockIndexes.push(index)
         }
@@ -44,5 +44,3 @@ function extractDashComments (sql: string): Array<string> {
 
   return blocks
 }
-
-module.exports = extractDashComments

@@ -1,12 +1,12 @@
-function extractStarComments (sql: string): Array<string> {
-  let blocks = []
-  let blockIndexes = []
+export default function extractStarComments(sql: string): string[] {
+  const blocks = []
+  const blockIndexes = []
 
-  let isInsideComment = sql.substring(0, 2) === '/*'
+  let isInsideComment = sql.substring(0, 2) === "/*"
 
-  sql.split('').forEach((currentValue, index, array) => {
-    const currentTwoChars = array.slice(index, index + 2).join('')
-    const previousTwoChars = array.slice(index - 1, index + 1).join('')
+  sql.split("").forEach((currentValue, index, array) => {
+    const currentTwoChars = array.slice(index, index + 2).join("")
+    const previousTwoChars = array.slice(index - 1, index + 1).join("")
 
     switch (index) {
       case 0:
@@ -17,12 +17,12 @@ function extractStarComments (sql: string): Array<string> {
         break
       default:
         if (isInsideComment) {
-          if (previousTwoChars === '*/') {
+          if (previousTwoChars === "*/") {
             isInsideComment = false
             blockIndexes.push(index + 1)
           }
         } else {
-          if (currentTwoChars === '/*') {
+          if (currentTwoChars === "/*") {
             isInsideComment = true
             blockIndexes.push(index)
           }
@@ -36,5 +36,3 @@ function extractStarComments (sql: string): Array<string> {
 
   return blocks
 }
-
-module.exports = extractStarComments
