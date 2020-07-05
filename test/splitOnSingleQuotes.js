@@ -8,6 +8,7 @@ test('splitOnSingleQuotes', (t) => {
   t.deepEqual(split("select 'hello world' from mytable"), ['select ', "'hello world'", ' from mytable'], 'single quotes')
   t.deepEqual(split("select 'O''Reilly' from mytable"), ['select ', "'O''Reilly'", ' from mytable'], 'escape quotes')
   t.deepEqual(split("select 'hello world'"), ['select ', "'hello world'"], 'single quotes, last char is a quote')
+  t.deepEqual(split("select '''foo''' from bar"), ["select '''foo''' from bar"], 'triple quotes, do not split')
 
   t.end()
 })
